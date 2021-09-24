@@ -2,23 +2,30 @@ package entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
+@Table(name="stay")
 @Entity
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class  Hotel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @JsonIgnore
     @OneToMany(mappedBy = "hotel", orphanRemoval = true)
     private List<Room> rooms = Collections.EMPTY_LIST;
+    @Column(name = "name")
     private String name;
     @Embedded
     private Coordinates coordinates;
 
-    protected Hotel() {
-    }
+
 }
