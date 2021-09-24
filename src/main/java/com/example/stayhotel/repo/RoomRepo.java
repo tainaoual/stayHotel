@@ -1,6 +1,7 @@
-package service;
+package com.example.stayhotel.service;
 
-import entity.Room;
+
+import com.example.stayhotel.entity.Room;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
