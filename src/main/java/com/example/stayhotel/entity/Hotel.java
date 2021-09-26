@@ -1,4 +1,4 @@
-package entity;
+package com.example.stayhotel.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

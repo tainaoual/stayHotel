@@ -1,7 +1,8 @@
-package service;
+package com.example.stayhotel.service;
 
 
-import entity.Hotel;
+import com.example.stayhotel.entity.Hotel;
+import com.example.stayhotel.repo.HotelRepo;
 import org.springframework.stereotype.Service;
 
 @Service

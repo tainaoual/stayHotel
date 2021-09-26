@@ -1,4 +1,4 @@
-package com.example.stayhotel.service;
+package com.example.stayhotel.repo;
 
 
 import com.example.stayhotel.entity.Room;

@@ -1,6 +1,9 @@
-package service;
+package com.example.stayhotel.service;
 
-import entity.Room;
+
+import com.example.stayhotel.entity.Room;
+import com.example.stayhotel.repo.HotelRepo;
+import com.example.stayhotel.repo.RoomRepo;
 import org.springframework.stereotype.Service;
 
 @Service

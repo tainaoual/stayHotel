@@ -1,9 +1,17 @@
-package controller;
+package com.example.stayhotel.controller;
 
-import entity.Hotel;
-import entity.Room;
+
+import com.example.stayhotel.entity.Hotel;
+import com.example.stayhotel.entity.Room;
+import com.example.stayhotel.entity.ServicePv;
+import com.example.stayhotel.repo.ClientRepo;
+import com.example.stayhotel.repo.HotelRepo;
+import com.example.stayhotel.repo.RoomRepo;
+import com.example.stayhotel.repo.ServicePvRepo;
+import com.example.stayhotel.service.RoomService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.*;
 
 
 
@@ -11,15 +19,17 @@ import service.*;
     @RestController
     public class RoomController {
         private RoomService roomService;
+        private RoomRepo roomRepo;
         private HotelRepo hotelRepo;
-        private  ClientRepo clientRepo;
+        private ClientRepo clientRepo;
         private ServicePvRepo servicePvRepo;
 
-        public RoomController(RoomService roomService, ServicePvRepo servicePvRepo, ClientRepo clientRepo, HotelRepo hotelRepo) {
+        public RoomController(RoomService roomService,RoomRepo roomRepo, ServicePvRepo servicePvRepo, ClientRepo clientRepo, HotelRepo hotelRepo) {
             this.roomService = roomService;
             this.hotelRepo = hotelRepo;
             this.clientRepo = clientRepo;
             this.servicePvRepo = servicePvRepo;
+            this.roomRepo = roomRepo;
         }
 
         @GetMapping("/api/rooms")
@@ -41,7 +51,31 @@ import service.*;
         public Iterable<Room> retrieveRoomsByHotelId(@PathVariable Long id){
             return roomService.retrieveRoomsFromHotelById(id);
         }
+        @PostMapping("/hotels")
+        public ResponseEntity<Hotel> save(@RequestBody Hotel hotel) {
+            try {
+                return new ResponseEntity<>(hotelRepo.save(hotel), HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        @PostMapping("/rooms")
+        public ResponseEntity<Room> save(@RequestBody Room room) {
+            try {
+                return new ResponseEntity<>(roomRepo.save(room), HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
 
+        @PostMapping("/servicePv")
+        public ResponseEntity<ServicePv> save(@RequestBody ServicePv servicePv) {
+            try {
+                return new ResponseEntity<>(servicePvRepo.save(servicePv), HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
         @PostMapping("/api/rooms/hotel/{id}")
         public  Iterable<Room> addRoom(@RequestBody Room roomToAdd, @PathVariable Long id){
             hotelRepo.save(roomToAdd.getHotel());
@@ -74,7 +108,7 @@ import service.*;
         }
 
         @GetMapping("/api/hotel/{id}")
-        public Hotel retrieveHtellById(@PathVariable Long id){
+        public Hotel retrieveHotelById(@PathVariable Long id){
             return hotelRepo.findById(id).get();
         }
     }
