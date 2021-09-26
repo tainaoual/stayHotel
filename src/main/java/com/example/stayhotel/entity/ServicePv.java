@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServicePv {

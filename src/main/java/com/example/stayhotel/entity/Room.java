@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
@@ -53,5 +54,17 @@ public class Room {
     @OneToOne
     private ServicePv servicePv;
 
+    public Room(Long id, String roomId, String owner, String condition, String location, String history, String floor, String smokeLevel, String summary) {
+        this.id = id;
+        this.roomId = roomId;
+        this.owner = owner;
+        this.condition = condition;
+        this.location = location;
+        History = history;
+        this.floor = floor;
+        this.smokeLevel = smokeLevel;
+        this.summary = summary;
 
+
+    }
 }

@@ -4,10 +4,7 @@ package com.example.stayhotel.controller;
 import com.example.stayhotel.entity.Hotel;
 import com.example.stayhotel.entity.Room;
 import com.example.stayhotel.entity.ServicePv;
-import com.example.stayhotel.repo.ClientRepo;
-import com.example.stayhotel.repo.HotelRepo;
-import com.example.stayhotel.repo.RoomRepo;
-import com.example.stayhotel.repo.ServicePvRepo;
+import com.example.stayhotel.repo.*;
 import com.example.stayhotel.service.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
         private RoomService roomService;
         private RoomRepo roomRepo;
         private HotelRepo hotelRepo;
-        private ClientRepo clientRepo;
+        private ClientsRepo clientsRepo;
         private ServicePvRepo servicePvRepo;
 
-        public RoomController(RoomService roomService,RoomRepo roomRepo, ServicePvRepo servicePvRepo, ClientRepo clientRepo, HotelRepo hotelRepo) {
+        public RoomController(RoomService roomService,RoomRepo roomRepo, ServicePvRepo servicePvRepo ,ClientsRepo clientsRepo, HotelRepo hotelRepo) {
             this.roomService = roomService;
             this.hotelRepo = hotelRepo;
-            this.clientRepo = clientRepo;
+            this.clientsRepo = clientsRepo;
             this.servicePvRepo = servicePvRepo;
             this.roomRepo = roomRepo;
         }
@@ -80,7 +77,7 @@ import org.springframework.web.bind.annotation.*;
         public  Iterable<Room> addRoom(@RequestBody Room roomToAdd, @PathVariable Long id){
             hotelRepo.save(roomToAdd.getHotel());
             servicePvRepo.save(roomToAdd.getServicePv());
-            clientRepo.save(roomToAdd.getClients());
+            clientsRepo.save(roomToAdd.getClients());
             roomService.saveRoom(roomToAdd);
             System.out.println(id);
             return roomService.retrieveRoomsFromHotelById(id);
@@ -90,7 +87,7 @@ import org.springframework.web.bind.annotation.*;
             if(roomToEdit.getId()!= null){
                 hotelRepo.save(roomToEdit.getHotel());
                 servicePvRepo.save(roomToEdit.getServicePv());
-                clientRepo.save(roomToEdit.getClients());
+                clientsRepo.save(roomToEdit.getClients());
                 roomService.saveRoom((roomToEdit));
             }
             return roomService.retrieveAllRooms();

@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class  Hotel {
@@ -27,5 +28,9 @@ public class  Hotel {
     @Embedded
     private Coordinates coordinates;
 
-
+    public Hotel(long id, String name, Coordinates coordinates) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+    }
 }

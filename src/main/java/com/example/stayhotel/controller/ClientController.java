@@ -1,7 +1,7 @@
 package com.example.stayhotel.controller;
 
 import com.example.stayhotel.entity.Clients;
-import com.example.stayhotel.repo.ClientRepo;
+import com.example.stayhotel.repo.ClientsRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +12,16 @@ import java.util.Optional;
 
 @RestController
 public class ClientController {
-    private final ClientRepo clientRepo;
+    private final ClientsRepo clientsRepo;
 
-    public ClientController(ClientRepo clientRepo) {
-        this.clientRepo = clientRepo;
+    public ClientController(ClientsRepo clientsRepo) {
+        this.clientsRepo = clientsRepo;
     }
 
     @PostMapping("/clients")
     public ResponseEntity<Clients> save(@RequestBody Clients clients) {
         try {
-            return new ResponseEntity<>(clientRepo.save(clients), HttpStatus.CREATED);
+            return new ResponseEntity<>(clientsRepo.save(clients), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -30,7 +30,7 @@ public class ClientController {
     @GetMapping("/clients")
     public ResponseEntity<List<Clients>> getAllClients() {
         try {
-            List<Clients> list = (List<Clients>) clientRepo.findAll();
+            List<Clients> list = (List<Clients>) clientsRepo.findAll();
             if (list.isEmpty() || list.size() == 0) {
                 return new ResponseEntity<List<Clients>>(HttpStatus.NO_CONTENT);
 
@@ -46,7 +46,7 @@ public class ClientController {
     public ResponseEntity<Clients>updateClients(@RequestBody Clients Clients) {
 
         try {
-            return new ResponseEntity<Clients>(clientRepo.save(Clients), HttpStatus.OK);
+            return new ResponseEntity<Clients>(clientsRepo.save(Clients), HttpStatus.OK);
         } catch (Exception E) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,8 +55,8 @@ public class ClientController {
     public ResponseEntity<HttpStatus>deleteClients(@PathVariable Long id ) {
 
         try {
-            Optional<Clients> clients = clientRepo.findById(id);
-            clients.ifPresent(clientRepo::delete);
+            Optional<Clients> clients = clientsRepo.findById(id);
+            clients.ifPresent(clientsRepo::delete);
             return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
 
         } catch (Exception e) {

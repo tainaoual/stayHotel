@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
+
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Clients {
@@ -26,6 +28,12 @@ public class Clients {
     private String age;
     @Column(name = "data")
     private String data;
+//    private Object Clients;
+
+
+
+    public Clients(String name,String lastName,String address,String age, String data) {
+}
 
 
 }
